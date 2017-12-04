@@ -57,9 +57,17 @@ public class Scanner {
         /**
          * Complete the Following.
          */
-        String sub = "";
-        String sum = "";
-        String id = "";
+        String sub = "\\sub\\";
+        String sum = "\\sum\\";
+        /**
+         * The legal identifier:
+         * ----------------------
+         * 1- Begins with a letter or an underscore.
+         * 2- The Subsequent characters may be letters or digits or underscores
+         * 
+         * @link https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
+         */
+        String id = "([a-zA-Z]|_)([a-zA-Z]+|[0-9]+|_+)";
         
     }
     
@@ -79,7 +87,7 @@ public class Scanner {
          * split the String line into an array of strings.
          */
         
-        //this.lexemes = ;
+        this.lexemes = line.split(" ");
         
     }
     
