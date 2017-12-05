@@ -1,26 +1,18 @@
 package compiler;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  *
  * @author Mdhem
  */
 public class Scanner {
-    /**
-     * A string attribute that contains the input line
-     */
+
     private String line;
-    
-    /**
-     * An array of strings that contains lexemes.
-     * For example:
-     * if the input is "mul 3 sub 2 sum 1 3 4" 
-     * the resultant lexemes array will be:
-     * 
-     * ---------------------------------------
-     * | mul | 3 | sub | 2 | sum | 1 | 3 | 4 |
-     * ---------------------------------------
-     */
-    private String[] lexemes;
+    private List<HashMap> symboleTable = new ArrayList<>();
+    private List<HashMap> language = new ArrayList<>();
     
     
     /**
@@ -32,8 +24,8 @@ public class Scanner {
         // Build the language
         this.language();
         
-        // Extract lexemes.
-        this.lexemes(line);
+        // Extract lexemes and build tokens
+        this.tokens(line);
     }
     
     /**
@@ -42,32 +34,47 @@ public class Scanner {
      */
     private void language(){
         
-        /**
-         * ------------------------------------------
-         * Required Task
-         * ------------------------------------------
-         * 
-         * Write down the regex that match the following strings 
-         * as mentioned in our Class and as declared in each variable name.
-         */
+        HashMap digits  = new HashMap();
+        HashMap mul     = new HashMap();
+        HashMap div     = new HashMap();
+        HashMap sum     = new HashMap();
+        HashMap sub     = new HashMap();
+        HashMap id      = new HashMap();
         
-        String number = "\\d+";
-        String mul = "\\bmul\\b";
+        // Build the regex of digits
+        digits.put("type", "digit");
+        digits.put("regex", "\\d+");
+        this.language.add( digits );
         
-        /**
-         * Complete the Following.
-         */
-        String sub = "\\sub\\";
-        String sum = "\\sum\\";
-        /**
-         * The legal identifier:
-         * ----------------------
-         * 1- Begins with a letter or an underscore.
-         * 2- The Subsequent characters may be letters or digits or underscores
-         * 
-         * @link https://docs.oracle.com/javase/tutorial/java/nutsandbolts/variables.html
-         */
-        String id = "([a-zA-Z]|_)([a-zA-Z]+|[0-9]+|_+)";
+        // Build the regex of Multiplication operation
+        mul.put("type", "operation");
+        mul.put("subType", "mul");
+        mul.put("regex", "\\bmul\\b");
+        this.language.add( mul );
+        
+        // Build the regex of division
+        div.put("type", "operation");
+        div.put("subType", "div");
+        div.put("regex", "\\bdiv\\b");
+        this.language.add( div );
+        
+        // Build the regex of addition
+        sum.put("type", "operation");
+        sum.put("subType", "sum");
+        sum.put("regex", "\\bsum\\b");
+        this.language.add( sum );
+        
+        // Build the regex of subtraction
+        sub.put("type", "operation");
+        sub.put("subType", "sub");
+        sub.put("regex", "\\bsub\\b");
+        this.language.add( sub );
+        
+        // Build the regex of identifier
+        id.put("type", "identifier");
+        id.put("regex", "([a-zA-Z]|_)([a-zA-Z]+|[0-9]+|_+)");
+        this.language.add( id );
+        
         
     }
     
@@ -78,19 +85,55 @@ public class Scanner {
      * @param String line
      * 
      */
-    private void lexemes(String line){
+    private void tokens(String line){
         
-        /**
-         * 1- Uncomment the following statement.
-         * 
-         * 2- Complete the following statement to perform what is required to
-         * split the String line into an array of strings.
-         */
+        for(String lexeme : line.split(" ")){
+            
+            HashMap token = new HashMap();
+            token.put("lexeme", lexeme);
+            
+            String lexemeType = this.getLexemeType( lexeme );
+            
+            token.put("type", lexemeType );
+            
+            if( lexemeType == "operation" || lexemeType == "digit"){
+                
+                token.put( "value", lexeme );
+                
+            }else{
+                
+                token.put( "value", "" );
+                
+            }
+            
+            this.symboleTable.add( token );
+           
+        }
         
-        this.lexemes = line.split(" ");
-        
+        System.out.println( symboleTable );
+         
     }
     
+    /**
+     * Gets the lexeme type form the language map
+     * @param lexeme
+     * @return String
+     */
+    private String getLexemeType(String lexeme){
+        
+        for(HashMap word : this.language){
+            
+            if( lexeme.matches( word.get("regex").toString() ) ){
+                
+               return word.get("type").toString();
+               
+            }
+            
+        }
+    
+        return "UNKNOWN";
+        
+    }
     
     
 }
