@@ -1,32 +1,5 @@
-/*
- * Compiler Section
- * @date 21/11/2017
- * @contact m.dhemy@outlook.com
- *
- * -----------------------------------------
- * Task details
- * -----------------------------------------
- *
- * # Subject: Compiler: 26-11
- *
- * [1] Read the Compiler, and the Scanner classes and follow the comments'
- * instructions to complete the required task.
- * 
- * [2] What is the HashMap? Illustrate how to use it in a separate project.
- * 
- * -----------------------------------------
- * Hints
- * -----------------------------------------
- * Java Regex syntax: 
- * https://www.tutorialspoint.com/java/java_regular_expressions.htm
- * 
- */
 package compiler;
 
-/**
- *
- * @author Mdhem
- */
 public class Compiler {
 
     /**
@@ -43,6 +16,12 @@ public class Compiler {
          * Creating a Scanner object
          */
         Scanner scanner = new Scanner( line );
+        
+        /**
+         * Print out the symbol table
+         */
+        
+        System.out.println( scanner.getSymbolTable() ); 
         
     }
     
