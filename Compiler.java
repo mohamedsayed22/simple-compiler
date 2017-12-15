@@ -17,11 +17,7 @@ public class Compiler {
          */
         Scanner scanner = new Scanner( line );
         
-        /**
-         * Print out the symbol table
-         */
-        
-        System.out.println( scanner.getSymbolTable() ); 
+        Parser parser = new Parser( scanner.getSymbolTable() );
         
     }
     
