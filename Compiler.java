@@ -17,6 +17,10 @@ public class Compiler {
          */
         Scanner scanner = new Scanner( line );
         
+        /**
+         * Creating a parser object using the symbolTabe as a parameter.
+         */
+        
         Parser parser = new Parser( scanner.getSymbolTable() );
         
     }

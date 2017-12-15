@@ -7,17 +7,16 @@ import java.util.List;
 public class Scanner {
     
     /**
-     * @var String line
      * Holds the input line
      */
     private String line;
+    
     /**
-     * @var List<HashMap>
      * holds the symbol table 
      */
     private List<HashMap> symbolTable = new ArrayList<>();
+    
     /**
-     * @var List<HashMap>
      * Holds the language
      */
     private List<HashMap> language = new ArrayList<>();
@@ -29,19 +28,19 @@ public class Scanner {
      */
     public Scanner(String line) {
         
-        // Set tha line attribute
+        // Sets the line attribute
         this.line = line;
         
         // Build the language
         this.language();
         
-        // Extract lexemes and build symbole table with tokens
+        // Extract lexemes and build symbol table with tokens
         this.tokens();
     }
     
     /**
      * Builds our language.
-     * //TODO Complete this method implementation
+     *
      */
     private void language(){
         
@@ -79,7 +78,7 @@ public class Scanner {
         
         // Build the regex of identifier
         id.put("type", "identifier");
-        id.put("regex", "([a-zA-Z]|_)([a-zA-Z]+|[0-9]+|_+)");
+        id.put("regex", "([a-zA-Z]|_)([a-zA-Z]+|[0-9]+|_+)*");
         this.language.add( id );
         
         
