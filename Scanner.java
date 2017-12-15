@@ -50,7 +50,15 @@ public class Scanner {
         HashMap sum     = new HashMap();
         HashMap sub     = new HashMap();
         HashMap id      = new HashMap();
+        HashMap keywords = new HashMap();
         
+
+
+        //Build the regex of number
+        number.put("type","keywords");
+        number.put("regex","if|for|while|switche");
+
+
         // Build the regex of numbers
         number.put("type", "number");
         number.put("regex", "\\d+");
