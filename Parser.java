@@ -100,7 +100,7 @@ public class Parser {
         
         if( token.get("type") == "operation" ){
                 
-                this.parseOperation(token);
+            this.parseOperation(token);
                 
         }else if( token.get("type") == "number" ){
                 
@@ -108,8 +108,8 @@ public class Parser {
             
         }else{
                 
-                System.out.println("Error! Unknown expression!");
-                System.exit( 0 );
+            System.out.println("Error! Unknown expression!");
+            System.exit( 0 );
         }
     
     }
@@ -132,14 +132,20 @@ public class Parser {
         HashMap node, nextNode;
         node = new HashMap();
         
+        // Sets type, value and parent
         node.put("type", token.get("type") );
         node.put("value", token.get("value") );
-        node.put( "parent", this.lastParentIndex );
+        node.put("parent", this.lastParentIndex );
+        
+        // Adds the node to the tree
         this.syntaxTree.add( node );
         
-        try{
+        // Makes it the parent of the next node because it's an operation
+        this.lastParentIndex = this.nodeIndex;
+        
+        try{ // Parse the next node ( See the grammar )
             
-            nextNode = this.symbolTable.get( nodeIndex + 1);
+            nextNode = this.symbolTable.get( ++this.nodeIndex );
             this.parseExpression( nextNode );
             
             
@@ -148,11 +154,7 @@ public class Parser {
             System.out.println("Syntax error!, Operation needs operand (expression) !");
             System.exit( 0 );
             
-        }
-        
-        
-        this.lastParentIndex = this.nodeIndex;
-        this.nodeIndex ++;
+        } 
           
     }
    
@@ -169,9 +171,12 @@ public class Parser {
         HashMap node;
         node = new HashMap();
         
+        // Sets type, value and parent
         node.put("type", token.get("type") );
         node.put("value", token.get("value") );
         node.put( "parent", this.lastParentIndex );
+        
+        // Adds the node to the tree
         this.syntaxTree.add( node );
         
         this.nodeIndex ++;
